@@ -1,26 +1,15 @@
+import db from "./config/db.js";
 import express from "express";
+import todoRoutes from "./routes/todoRoutes.js";
 
-//top level function call  express app object
+//db connection
+db();
+
 let app=express();
 
+//middleware
+app.use(express.json());
 
-app.use("/home",function(req,res,next){
-    console.log("parse");
-    next()
-});
-app.use("/home",function auth(req,res,next){
-    console.log("auth");
-    next()
-}
-);
-
-app.get("/home",(req,res,next)=>{
-    res.send("home page");
-});
-
-
-app.get("/about",(req,res,next)=>{
-    res.send("about page");
-});
+app.use(todoRoutes);
 
 export default app;
